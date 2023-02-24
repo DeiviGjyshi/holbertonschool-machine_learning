@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Cat got your tongue documentation"""
 import numpy as np
 """Cat got your tongue documentation"""
 
