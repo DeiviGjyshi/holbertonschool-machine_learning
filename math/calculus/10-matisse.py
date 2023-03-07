@@ -4,13 +4,13 @@
 
 def poly_derivative(poly):
     """Task 10 matisse"""
-    if len(poly) <= 1 or not isinstance(poly,list):
+    if not isinstance(poly ,list):
         return None
     n = len(poly)
     res = []
     for j in range(n):
         if j == 0:
-            continue 
+            continue
         elif j == 1:
             res.append(poly[j])
         elif j > 1:
