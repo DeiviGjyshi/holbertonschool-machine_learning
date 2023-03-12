@@ -45,7 +45,7 @@ class Binomial:
     def cdf(self, k):
         """CDF function"""
         if type(k) is not int:
-            k = int(k) 
+            k = int(k)
         if (k < 0):
             return 0
         cdf = 0
