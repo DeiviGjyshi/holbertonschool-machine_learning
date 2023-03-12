@@ -7,7 +7,7 @@ class Binomial:
     def __init__(self, data=None, n=1, p=0.5):
         self.n = int(round(n))
         self.p = float(p)
-        if self.n < 0:
+        if self.n <= 0:
             raise ValueError("n must be a positive value")
         if p <= 0 or p >= 1:
             raise ValueError("p must be greater than 0 and less than 1")
