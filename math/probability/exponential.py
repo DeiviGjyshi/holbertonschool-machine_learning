@@ -3,6 +3,7 @@
 
 
 class Exponential:
+    """Exponential constructor"""
     def __init__(self, data=None, lambtha=1.):
         self.lambtha = float(lambtha)
         if self.lambtha <= 0:
