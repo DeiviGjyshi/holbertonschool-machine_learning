@@ -42,8 +42,9 @@ class Normal:
     def cdf(self, x):
         """CDF function"""
         pi = 3.1415926536
-        va = float((x - self.mean) / (self.stddev * (2 ** 0.5)))
-        coeff = (va - (va ** 3 / 3) + (va ** 5 / 10) - (va ** 7 / 42) + (va ** 9 / 216))
+        v = float((x - self.mean) / (self.stddev * (2 ** 0.5)))
+        va2 = (v ** 3 / 3) + (v ** 5 / 10) - (v ** 7 / 42) + (v ** 9 / 216)
+        coeff = (v - va2 )
         erf = float((2 / (pi ** 0.5)) * coeff)
         cdf = float((1/2) * (1 + erf))
         return cdf
