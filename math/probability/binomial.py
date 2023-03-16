@@ -18,8 +18,10 @@ class Binomial:
                 raise ValueError("data must contain multiple values")
             n = len(data)
             mean = float(sum(data) / n)
-            variance = float(sum((x - mean) ** 2 for x in data) / (n - 1))
-            self.n = int(round(mean ** 2 / (mean - variance)))
+            variance = float(sum((x - mean)**2 for x in data) / n)
+            q = variance / mean
+            p = (1-q)
+            self.n = int(round(mean / p))
             self.p = float(mean / self.n)
 
     def pmf(self, k):
