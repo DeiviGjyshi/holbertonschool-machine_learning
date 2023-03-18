@@ -1,17 +1,20 @@
+import numpy as np
 #!/usr/bin/env python3
-"""Convolutions task 0"""
+"""Performs a valid convolution on grayscale images"""
+
+
 
 
 def convolve_grayscale_valid(images, kernel):
     """
     Performs a valid convolution on grayscale images
     """
-    m, h, w = images.shape
+    m, height, width = images.shape
     kh, kw = kernel.shape
-    convoluted = np.zeros((m, h - kh + 1, w - kw + 1))
-    for i in range(h - kh + 1):
-        for j in range(w - kw + 1):
-            output = np.sum(images[:, i: i + kh, j: j + kw] * kernel,
+    convoluted = np.zeros((m, height - kh + 1, width - kw + 1))
+    for h in range(height - kh + 1):
+        for w in range(width - kw + 1):
+            output = np.sum(images[:, h: h + kh, w: w + kw] * kernel,
                             axis=1).sum(axis=1)
-            convoluted[:, i, j] = output
+            convoluted[:, h, w] = output
     return convoluted
