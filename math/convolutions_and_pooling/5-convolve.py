@@ -14,14 +14,15 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
     elif padding == 'valid':
         ph = pw = 0
     else:
-        ph, pw = padding  
+        ph, pw = padding
     imp = np.pad(images, ((0, 0), (ph, ph), (pw, pw), (0, 0)), mode='constant')
     out_h = int((h + 2 * ph - kh) / sh + 1)
     out_w = int((w + 2 * pw - kw) / sw + 1)
-    out_5 = np.zeros((m, out_h, out_w,nc))
+    out_5 = np.zeros((m, out_h, out_w, nc))
     for k in range(nc):
         for i in range(out_h):
             for j in range(out_w):
                 window = imp[:, i*sh:i*sh+kh, j*sw:j*sw+kw, :]
-                out_5[:, i, j, k] = np.sum(window * kernels[..., k], axis=(1, 2, 3))
+                out_5[:, i, j, k] = np.sum(window * kernels[..., k],
+                                           axis=(1, 2, 3))
     return out_5
