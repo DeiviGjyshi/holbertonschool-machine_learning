@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import numpy as np
 """Performs a valid convolution"""
+import numpy as np
 
 
 def convolve_grayscale_valid(images, kernel):
