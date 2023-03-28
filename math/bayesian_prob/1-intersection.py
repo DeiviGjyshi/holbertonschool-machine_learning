@@ -8,6 +8,7 @@ def intersection(x, n, P, Pr):
     c = "x must be an integer that is greater than or equal to 0"
     d = "Pr must be a numpy.ndarray with the same shape as P"
     e = "All values in Pr must be in the range [0, 1]"
+    e1 = "All values in P must be in the range [0, 1]"
     if type(n) is not int or n <= 0:
         raise ValueError("n must be a positive integer")
     if type(x) is not int or x < 0:
@@ -20,7 +21,7 @@ def intersection(x, n, P, Pr):
         raise TypeError(d)
     for idx in range(P.shape[0]):
         if P[idx] > 1 or P[idx] < 0:
-            raise ValueError(e)
+            raise ValueError(e1)
         if Pr[idx] > 1 or Pr[idx] < 0:
             raise ValueError(e)
     if np.isclose([np.sum(Pr)], [1]) == [False]:
