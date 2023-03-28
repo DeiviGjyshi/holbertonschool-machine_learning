@@ -13,5 +13,5 @@ def correlation(C):
     corr = np.zeros((d, d))
     for i in range(d):
         for j in range(d):
-           corr[i, j] = C[i, j] / np.sqrt(C[i, i] * C[j, j])
+            corr[i, j] = C[i, j] / np.sqrt(C[i, i] * C[j, j])
     return corr
