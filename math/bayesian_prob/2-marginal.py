@@ -25,7 +25,7 @@ def marginal(x, n, P, Pr):
         if Pr[idx] > 1 or Pr[idx] < 0:
             raise ValueError(e)
     if np.isclose([np.sum(Pr)], [1]) == [False]:
-         raise ValueError("Pr must sum to 1")
+        raise ValueError("Pr must sum to 1")
     factorial = np.math.factorial
     fact_coeff = factorial(n) / (factorial(n-x) * factorial(x))
     likelihood = fact_coeff * (P**x) * ((1-P)**(n-x))
