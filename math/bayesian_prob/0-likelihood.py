@@ -5,11 +5,11 @@ import numpy as np
 
 def likelihood(x, n, P):
     """Likelihood function"""
+    c = "x must be an integer that is greater than or equal to 0"
     if type(n) is not int or n <= 0:
         raise ValueError("n must be a positive integer")
     if type(x) is not int or x < 0:
-        raise ValueError("x must be an integer that is greater than or/
-                         equal to 0")
+        raise ValueError(c)
     if x > n:
         raise ValueError("x cannot be greater than n")
     if type(P) is not np.ndarray or len(P.shape) != 1:
@@ -18,6 +18,6 @@ def likelihood(x, n, P):
         if value > 1 and value < 0:
             raise ValueError()
     factorial = np.math.factorial
-    fact_coeff =factorial(n) / (factorial(n-x) * factorial(x))
+    fact_coeff = factorial(n) / (factorial(n-x) * factorial(x))
     likelihood = fact_coeff * (P**x) * ((1-P)**(n-x))
     return likelihood
