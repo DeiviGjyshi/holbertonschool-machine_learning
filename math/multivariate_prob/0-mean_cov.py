@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """calculates the mean and covariance of a data set"""
+import numpy as np
 
 
 def mean_cov(X):
