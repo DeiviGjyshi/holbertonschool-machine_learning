@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def posterior(x, n, Pr, P):
+def posterior(x, n, P, Pr):
     """Posterior function"""
     c = "x must be an integer that is greater than or equal to 0"
     d = "Pr must be a numpy.ndarray with the same shape as P"
