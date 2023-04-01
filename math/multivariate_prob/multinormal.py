@@ -19,9 +19,9 @@ class MultiNormal:
         """Mean and convolution"""
         n, d = X.shape
         if type(X) is not np.ndarray or len(X.shape) != 2:
-            raise TypeError("X must be a 2D numpy.ndarray")
+            raise TypeError("data must be a 2D numpy.ndarray")
         if n < 2:
-            raise ValueError("X must contain multiple data points")
+            raise ValueError("data must contain multiple data points")
         mean = np.mean(X, axis=0)
         cov = np.zeros((d, d))
         for i in range(n):
