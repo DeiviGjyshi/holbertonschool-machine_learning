@@ -15,7 +15,7 @@ class MultiNormal:
         self.mean, self.cov = self.mean_cov(data.T)
         self.mean = self.mean.reshape(-1, 1)
 
-    def mean_cov(X):
+    def mean_cov(self, X):
         """Mean and convolution"""
         n, d = X.shape
         if type(X) is not np.ndarray or len(X.shape) != 2:
