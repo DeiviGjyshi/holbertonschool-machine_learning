@@ -13,8 +13,10 @@ class MultiNormal:
         if n < 2:
             raise ValueError("data must contain multiple data points")
         self.mean, self.cov = mean_cov(data.T)
-        self.mean = self.mean.reshape(-1, 1)    
+        self.mean = self.mean.reshape(-1, 1)
+  
     def mean_cov(X):
+        """Mean and convolution"""
         n, d = X.shape
         if type(X) is not np.ndarray or len(X.shape) != 2:
             raise TypeError("X must be a 2D numpy.ndarray")
