@@ -13,7 +13,6 @@ class MultiNormal:
         if n < 2:
             raise ValueError("data must contain multiple data points")
         self.mean, self.cov = self.mean_cov(data.T)
-        self.mean = self.mean.reshape(-1, 1)
 
     def mean_cov(self, X):
         """Mean and convolution"""
