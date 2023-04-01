@@ -7,14 +7,14 @@ class MultiNormal:
     """Multinormal probability class"""
     def __init__(self, data):
         """Multinormal init function"""
-        n, d = data.shape
         if type(data) is not np.ndarray or len(data.shape) != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
+        n, d = data.shape
         if n < 2:
             raise ValueError("data must contain multiple data points")
         self.mean, self.cov = mean_cov(data.T)
         self.mean = self.mean.reshape(-1, 1)
-  
+
     def mean_cov(X):
         """Mean and convolution"""
         n, d = X.shape
