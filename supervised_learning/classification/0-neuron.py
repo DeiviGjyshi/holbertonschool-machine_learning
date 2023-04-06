@@ -6,7 +6,6 @@ import numpy as np
 class Neuron:
     """ Task 0 neuron class"""
     def __init__(self, nx):
-        """Construstctor function"""
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
         if nx < 0:
