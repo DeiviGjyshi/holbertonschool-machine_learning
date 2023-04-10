@@ -63,7 +63,7 @@ class NeuralNetwork:
     def evaluate(self, X, Y):
         """Evaluate netwwork"""
         A = self.forward_prop(X)
-        for a in A:
-            cost =+ self.cost(Y, a)
-            prediction = np.where( a >= 0.5, 1, 0)
+        a1, a2 = A
+        cost = self.cost(Y, a2)
+        prediction = np.where( a2 >= 0.5, 1, 0)
         return (prediction, cost)
