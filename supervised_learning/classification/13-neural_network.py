@@ -68,23 +68,15 @@ class NeuralNetwork:
         prediction = np.where(a2 >= 0.5, 1, 0)
         return (prediction, cost)
 
-    def deriv_func(self, Z):
-        """Derivative of activation func"""
-        z1 = np.matmul(self.W1, Z) + self.b1
-        coeff = 1 / (1 + (np.exp(-z1)))
-        deriv = coeff * (1 - coeff)
-        return deriv
-
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """calculate gradient descent"""
-        m = Y.shape[1]
-        dz2 = (A2 - Y)
-        d__W2 = (1 / m) * (np.matmul(A1, dz2.transpose()).transpose())
-        d__b2 = (1 / m) * (np.sum(dz2))
-        self.__W2 = self.W2 - (alpha * d__W2)
-        self.__b2 = self.b2 - (alpha * d__b2)
-        dz1 = np.dot(self.__W2.T, dz2) * self.deriv_func(X)
-        d__W1 = (1 / m) * (np.matmul(X, dz1.transpose()).transpose())
-        d__b1 = (1 / m) * (np.sum(dz1))
-        self.__W1 = self.W1 - (alpha * d__W1)
-        self.__b1 = self.b1 - (alpha * d__b1)
+        dz2 = A2 - Y
+        db2 = (np.sum(dz2, axis=1, keepdims=True) / X.shape[1])
+        dw2 = (np.matmul(A1, dz2.T) / X.shape[1])
+        dz1 = np.matmul(self.__W2.T, dz2) * (A1 * (1 - A1))
+        db1 = (np.sum(dz1, axis=1, keepdims=True) / X.shape[1])
+        dw1 = (np.matmul(X, dz1.T) / X.shape[1])
+        self.__b2 = self.__b2 - (alpha * db2)
+        self.__W2 = self.__W2 - (alpha * dw2).T
+        self.__b1 = self.__b1 - (alpha * db1)
+        self.__W1 = self.__W1 - (alpha * dw1).T
