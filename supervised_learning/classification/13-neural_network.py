@@ -68,6 +68,13 @@ class NeuralNetwork:
         prediction = np.where(a2 >= 0.5, 1, 0)
         return (prediction, cost)
 
+    def deriv_func(self, Z):
+        """Derivative of activation func"""
+        z1 = np.matmul(self.W1, Z) + self.b1
+        coeff  = 1 / (1 + (np.exp(-z1)))
+        deriv = coeff * (1 - coeff)
+        return deriv
+
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """calculate gradient descent"""
         m = Y.shape[1]
@@ -76,7 +83,7 @@ class NeuralNetwork:
         d__b2 = (1 / m) * (np.sum(dz2))
         self.__W2 = self.W2 - (alpha * d__W2)
         self.__b2 = self.b2 - (alpha * d__b2)
-        dz1 = np.dot(self.__W2.T, dz2) * (1 - np.power(A1, 2))
+        dz1 = np.dot(self.__W2.T, dz2) * self.deriv_func(X) 
         d__W1 = (1 / m) * (np.matmul(X, dz1.transpose()).transpose())
         d__b1 = (1 / m) * (np.sum(dz1))
         self.__W1 = self.W1 - (alpha * d__W1)
