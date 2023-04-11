@@ -71,7 +71,7 @@ class NeuralNetwork:
     def deriv_func(self, Z):
         """Derivative of activation func"""
         z1 = np.matmul(self.W1, Z) + self.b1
-        coeff  = 1 / (1 + (np.exp(-z1)))
+        coeff = 1 / (1 + (np.exp(-z1)))
         deriv = coeff * (1 - coeff)
         return deriv
 
@@ -83,7 +83,7 @@ class NeuralNetwork:
         d__b2 = (1 / m) * (np.sum(dz2))
         self.__W2 = self.W2 - (alpha * d__W2)
         self.__b2 = self.b2 - (alpha * d__b2)
-        dz1 = np.dot(self.__W2.T, dz2) * self.deriv_func(X) 
+        dz1 = np.dot(self.__W2.T, dz2) * self.deriv_func(X)
         d__W1 = (1 / m) * (np.matmul(X, dz1.transpose()).transpose())
         d__b1 = (1 / m) * (np.sum(dz1))
         self.__W1 = self.W1 - (alpha * d__W1)
