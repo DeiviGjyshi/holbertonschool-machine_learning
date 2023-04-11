@@ -65,7 +65,7 @@ class NeuralNetwork:
         A = self.forward_prop(X)
         a1, a2 = A
         cost = self.cost(Y, a2)
-        prediction = np.where( a2 >= 0.5, 1, 0)
+        prediction = np.where(a2 >= 0.5, 1, 0)
         return (prediction, cost)
 
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
