@@ -44,10 +44,9 @@ class DeepNeuralNetwork:
         """forward propagation multi layer"""
         self.__cache["A0"] = X
         for i in range(1, self.__L + 1):
-            zl = np.matmul(self.__weights[f"W{i}"], 
-                           self.__cache[f"A{i - 1}"
-                                        ]) + self.__weights[f"b{i}"]
-            sig = 1 / (1 + (np.exp(-zl)))
-            self.__cache["A{}".format(
-                i)] = sig
-        return(sig, self.__cache)
+            Z = np.dot(self.__weights["W{}".format(i)],
+                       self.__cache["A{}".format(
+                        i - 1)]) + self.__weights["b{}".format(i)]
+            sigmoid = 1 / (1 + np.exp(-Z))
+            self.__cache["A{}".format(i)] = sigmoid
+        return (sigmoid, self.__cache)
