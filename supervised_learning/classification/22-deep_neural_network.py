@@ -27,6 +27,7 @@ class DeepNeuralNetwork:
                                           layers[i-1])*np.sqrt(2/layers[i-1])
             self.__weights["b{}".format(
                 i + 1)] = np.zeros([layers[i], 1], dtype=float)
+
     @property
     def L(self):
         return(self.__L)
@@ -61,7 +62,7 @@ class DeepNeuralNetwork:
         """Evaluate deep neural network"""
         A, cache = self.forward_prop(X)
         cost = self.cost(Y, A)
-        prediction = np.where( A >= 0.5, 1, 0)
+        prediction = np.where(A >= 0.5, 1, 0)
         return(prediction, cost)
 
     def gradient_descent(self, Y, cache, alpha=0.05):
@@ -72,8 +73,8 @@ class DeepNeuralNetwork:
             db = (np.sum(dz, axis=1, keepdims=True) / Y.shape[1])
             dw = (np.matmul(cache["A{}".format(i - 1)], dz.T) / Y.shape[1])
             dz = np.matmul(self.__weights["W{}".format(
-                i)].T, dz) * (cache["A{}".format(i - 1)]
-                                  * (1 - cache["A{}".format(i - 1)]))
+                i)].T, dz) * (cache["A{}".format(i - 1)] * (1 - cache["A{}"
+                                                            .format(i - 1)]))
             self.__weights["b{}".format(i)] = self.__weights["b{}".format(
                 i)] - (alpha * db)
             self.__weights["W{}".format(i)] = self.__weights["W{}".format(
