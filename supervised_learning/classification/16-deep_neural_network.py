@@ -1,4 +1,4 @@
-i#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Deep neural network 1"""
 import numpy as np
 
