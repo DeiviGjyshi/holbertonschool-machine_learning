@@ -89,8 +89,8 @@ class DeepNeuralNetwork:
             dw = (np.matmul(cache["A{}".format(i - 1)], dz.T) / Y.shape[1])
             if self.__activation == "sig":
                 dz = np.matmul(self.__weights["W{}".format(
-                    i)].T, dz) * (cache["A{}".format(i - 1)] * (1 - cache["A{}"
-                                 .format(i - 1)]))
+                    i)].T, dz) * (cache["A{}".format(
+                        i - 1)] * (1 - cache["A{}".format(i - 1)]))
             elif self.__activation == "tanh":
                 dz = np.matmul(self.__weights["W{}".format(
                     i)].T, dz) * (1 - cache["A{}".format(i - 1)]
