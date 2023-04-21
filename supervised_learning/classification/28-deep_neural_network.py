@@ -100,7 +100,7 @@ class DeepNeuralNetwork:
             self.__weights["W{}".format(i)] = self.__weights["W{}".format(
                 i)] - (alpha * dw).T
 
-    def train(self, X, Y, iterations=5000, alpha=0.05, 
+    def train(self, X, Y, iterations=5000, alpha=0.05,
               verbose=True, graph=True, step=100):
         """Train neural network"""
         if type(iterations) is not int:
