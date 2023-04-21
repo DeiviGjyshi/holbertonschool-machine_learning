@@ -13,6 +13,8 @@ class DeepNeuralNetwork:
             raise ValueError("nx must be a positive integer")
         if type(layers) is not list or len(layers) == 0:
             raise TypeError("layers must be a list of positive integers")
+        if activation != 'sig' and activation != 'tanh':
+            raise ValueError("activation must be 'sig' or 'tanh'")
         self.__activation = activation
         self.__L = len(layers)
         self.__cache = {}
@@ -49,31 +51,20 @@ class DeepNeuralNetwork:
     def forward_prop(self, X):
         """forward propagation multi layer"""
         self.__cache["A0"] = X
-        if self.__activation == 'sig':
-            for i in range(1, self.__L + 1):
-                Z = np.dot(self.__weights["W{}".format(i)],
-                        self.__cache["A{}".format(
-                            i - 1)]) + self.__weights["b{}".format(i)]
-                if i != self.__L:
-                    sigmoid = 1 / (1 + np.exp(-Z))
+        for i in range(1, self.__L + 1):
+            Z = np.dot(self.__weights["W{}".format(i)],
+                       self.__cache["A{}".format(
+                        i - 1)]) + self.__weights["b{}".format(i)]
+            if i != self.__L:
+                if self.__activation == 'sig':
+                    a = 1 / (1 + np.exp(-Z))
                 else:
-                    t = np.exp(Z)
-                    sigmoid = np.exp(Z) / np.sum(t, axis=0, keepdims=True)
-                self.__cache["A{}".format(i)] = sigmoid
-        elif self.__activation == "tanh":
-            for i in range(1, self.__L + 1):
-                Z = np.dot(self.__weights["W{}".format(i)],
-                        self.__cache["A{}".format(
-                            i - 1)]) + self.__weights["b{}".format(i)]
-                if i != self.__L:
-                    sigmoid = 1 / (1 + np.exp(-2 * Z))
-                    tanh = 2 * sigmoid - 1
-                else:
-                    t = np.exp(2 * Z)
-                    sigmoid = np.exp(2 *Z) / np.sum(t, axis=0, keepdims=True)
-                    tanh = 2 * sigmoid - 1
-                self.__cache["A{}".format(i)] = tanh
-        return (sigmoid, self.__cache)
+                    a = np.sinh(Z) / np.cosh(Z)
+            else:
+                t = np.exp(Z)
+                a = np.exp(Z) / np.sum(t, axis=0, keepdims=True)
+            self.__cache["A{}".format(i)] = a
+        return (a, self.__cache)
 
     def cost(self, Y, A):
         """Calculate cost"""
@@ -99,7 +90,7 @@ class DeepNeuralNetwork:
             if self.__activation == "sig":
                 dz = np.matmul(self.__weights["W{}".format(
                     i)].T, dz) * (cache["A{}".format(i - 1)] * (1 - cache["A{}"
-                                .format(i - 1)]))
+                                 .format(i - 1)]))
             elif self.__activation == "tanh":
                 dz = np.matmul(self.__weights["W{}".format(
                     i)].T, dz) * (1 - cache["A{}".format(i - 1)]
