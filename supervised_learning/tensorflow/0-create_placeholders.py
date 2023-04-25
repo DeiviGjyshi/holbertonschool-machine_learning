@@ -5,7 +5,6 @@ Defines a function to return two placeholders for the neural network
 import tensorflow as tf
 
 
-
 def create_placeholders(nx, classes):
     """
     Returns two placeholders, x and y, for the neural network
