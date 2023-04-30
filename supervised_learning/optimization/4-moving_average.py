@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Weighted moving average"""
-import matplotlib.pyplot as plt
 import numpy as np
 
 
