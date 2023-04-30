@@ -10,3 +10,4 @@ def update_variables_Adam(alpha, beta1, beta2, epsilon, var, grad, v, s, t):
     mt = np.divide(m, (1 - np.power(beta1, t)))
     vt = np.divide(v, (1 - np.power(beta2, t)))
     var = var - np.multiply(alpha, np.divide(mt, ((vt ** 0.5) + epsilon)))
+    return (var, mt, vt)
