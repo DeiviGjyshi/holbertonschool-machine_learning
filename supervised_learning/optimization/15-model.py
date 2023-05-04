@@ -15,6 +15,8 @@ def create_batch_norm_layer(prev, n, activation):
     norm = tf.nn.batch_normalization(X, mean, variance, offset=beta,
                                      scale=gamma, variance_epsilon=1e-8)
     return activation(norm)
+
+
 def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
     """Adam optimization algorithm"""
     optimizer = tf.train.AdamOptimizer(alpha, beta1=beta1, beta2=beta2,
