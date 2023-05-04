@@ -15,25 +15,21 @@ def create_batch_norm_layer(prev, n, activation):
     norm = tf.nn.batch_normalization(X, mean, variance, offset=beta,
                                      scale=gamma, variance_epsilon=1e-8)
     return activation(norm)
-
 def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
     """Adam optimization algorithm"""
     optimizer = tf.train.AdamOptimizer(alpha, beta1=beta1, beta2=beta2,
                                        epsilon=epsilon)
     return (optimizer.minimize(loss))
-
 def create_layer(prev, n, activation):
     """Function that returns the tensor output of the layer"""
     W = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
     model = tf.layers.Dense(units=n, activation=activation,
                             name="layer", kernel_initializer=W)
     return model(prev)
-
 def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
     """Function that creates a learning rate decay"""
     return tf.train.inverse_time_decay(alpha, global_step, decay_step,
                                        decay_rate, staircase=True)
-
 def forward_prop(x, layers=[], activations=[]):
     """Function that creates the forward propagation"""
     A = create_batch_norm_layer(x, layers[0], activations[0])
@@ -43,18 +39,15 @@ def forward_prop(x, layers=[], activations=[]):
         else:
             A = create_layer(A, layers[i], activations[i])
     return A
-
 def calculate_accuracy(y, y_pred):
     """Function that calculates the accuracy of a prediction"""
     y_m = tf.argmax(y, axis=1)
     yp_m = tf.argmax(y_pred, axis=1)
     return tf.reduce_mean(tf.cast(tf.equal(y_m, yp_m), 'float32'))
-
 def shuffle_data(X, Y):
     """shuffle the data"""
     random = np.random.permutation(X.shape[0])
     return (X[random], Y[random])
-
 def model(Data_train, Data_valid, layers, activations, alpha=0.001,
           beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1, batch_size=32,
           epochs=5, save_path='/tmp/model.ckpt'):
