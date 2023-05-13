@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+i
 """Regularization taksk"""
 import numpy as np
 
@@ -17,9 +18,9 @@ def dropout_forward_prop(X, weights, L, keep_prob):
             D1 = (D1 < keep_prob).astype(int)
             tanh = tanh * D1
             tanh = tanh / keep_prob
+            cache["D{}".format(i)] = D1
         else:
             t = np.exp(Z)
             tanh = np.exp(Z) / np.sum(t, axis=0, keepdims=True)
         cache["A{}".format(i)] = tanh
-        cache["D{}".format(i)] = D1
     return cache
