@@ -9,10 +9,10 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     cache["A0"] = X
     for i in range(1, L + 1):
         Z = np.dot(weights["W{}".format(i)],
-                    cache["A{}".format(
-                    i - 1)]) + weights["b{}".format(i)]
+           cache["A{}".format(
+               i - 1)]) + weights["b{}".format(i)]
         if i != L:
-            tanh =np.sinh(Z) / np.cosh(Z)
+            tanh = np.sinh(Z) / np.cosh(Z)
             D1 = np.random.rand(tanh.shape[0], tanh.shape[1])
             D1 = (D1 < keep_prob).astype(int)
             tanh = tanh * D1
