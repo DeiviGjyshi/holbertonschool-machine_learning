@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-i
 """Regularization taksk"""
 import numpy as np
 
