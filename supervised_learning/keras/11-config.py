@@ -5,7 +5,7 @@ import tensorflow.keras as K
 
 def save_config(network, filename):
     """Save model config"""
-    model = network.to_json(filename)
+    model = network.model.to_json(filename)
     with open(filename, "w") as f:
         f.write(model)
     return None
