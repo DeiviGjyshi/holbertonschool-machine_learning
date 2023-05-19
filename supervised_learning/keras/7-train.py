@@ -14,7 +14,7 @@ def train_model(network, data, labels, batch_size, epochs,
                                                   patience= patience))
     if validation_data is not None and learning_rate_decay:
         def lr_sched(epochs):
-            return (alpha / (1 + (decay_rate + epochs)))
+            return (alpha / (1 + (decay_rate * epochs)))
         callback.append(K.callbacks.LearningRateScheduler(schedule=lr_sched,
                                                           verbose=1))
     history = network.fit(data, labels,
