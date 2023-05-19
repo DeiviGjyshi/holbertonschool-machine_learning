@@ -11,7 +11,7 @@ def train_model(network, data, labels, batch_size,
     callback = []
     if validation_data is not None and early_stopping:
         callback.append(K.callbacks.EarlyStopping(monitor='val_loss',
-                                                  patience= patience))
+                                                  patience=patience))
     if validation_data is not None and learning_rate_decay:
         def lr_sched(epochs):
             return (alpha / (1 + (decay_rate + epochs)))
