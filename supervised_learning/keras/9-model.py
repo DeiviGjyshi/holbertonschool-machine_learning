@@ -8,7 +8,8 @@ def save_model(network, filename):
     network.save(filename)
     return None
 
+
 def load_model(filename):
     """Load model"""
-    model = K.Models.load_models(filename)
+    model = K.Models.load_model(filename)
     return model
