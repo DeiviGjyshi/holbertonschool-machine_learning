@@ -19,7 +19,7 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                         A_min = A_prev[g, x:x + kh, y:y + kw, k]
                         slope = (A_min == np.max(A_min))
                         dA_prev[g, x:x + kh,
-                                y:y + kw, k] = slope * dA[g, i, j, k]
+                                y:y + kw, k] += slope * dA[g, i, j, k]
                     else:
                         dAmin = dA[g, i, j, k]/kh/kw
                         dA_prev[g, x:x + kh, y:y + kw, k] += dAmin
