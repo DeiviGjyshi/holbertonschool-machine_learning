@@ -16,7 +16,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
         pw = (((w_prev - 1) * sw) + kw - w_prev) // 2
     else:
         return
-    images = np.pad(A_prev, ((0,0), (ph, ph), (pw, pw), (0,0)),
+    images = np.pad(A_prev, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
                     'constant', constant_values=0)
     nh = int(((h_prev + (2 * ph) - kh) / sh) + 1)
     nw = int(((w_prev + (2 * pw) - kw) / sw) + 1)
@@ -29,7 +29,7 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
                 output = images[:, h:h + kh, w:w + kw, :]
                 kernel = W[:, :, :, k]
                 convoluted[:, i, j, k] = np.sum(np.multiply(output, kernel),
-                                               axis=(1, 2, 3))
+                                                axis=(1, 2, 3))
     convoluted = convoluted + b
     convoluted = activation(convoluted)
     return convoluted
