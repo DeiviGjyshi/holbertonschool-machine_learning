@@ -5,34 +5,33 @@ import numpy as np
 
 def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     """Convolution backward"""
-    m, h_new, w_new, c_new = dZ.shape
-    m, h_prev, w_prev, c_prev = A_prev.shape
-    kh, kw, c_prev, c_new = W.shape
-    sh, sw = stride
-    if padding == "valid":
+    if padding == 'same':
+        ph = int(((A_prev.shape[1] - 1) * stride[0] +
+                  W.shape[0] - A_prev.shape[1]) / 2) + 1
+        pw = int(((A_prev.shape[2] - 1) * stride[1] +
+                  W.shape[1] - A_prev.shape[2]) / 2) + 1
+    else:
         ph = 0
         pw = 0
-    elif padding == "same":
-        ph = (((h_prev - 1) * sh) + kh - h_prev) // 2
-        pw = (((w_prev - 1) * sw) + kw - w_prev) // 2
-    else:
-        return
-    db = np.sum(dZ, axis=(0,1,2))
-    images = np.pad(A_prev, ((0, 0), (ph, ph), (pw, pw), (0, 0)),
-                    'constant', constant_values=0)
-    dA = np.zeros(images.shape)
+    db = np.sum(dZ, axis=(0, 1, 2), keepdims=True)
+    npad = ((0, 0), (ph, ph), (pw, pw), (0, 0))
+    A_pad = np.pad(A_prev, pad_width=npad,
+                   mode='constant', constant_values=0)
+    dA = np.zeros(A_pad.shape)
     dW = np.zeros(W.shape)
-    for k in range(m):
-        for i in range(h_new):
-            x = i * sh
-            for j in range(w_new):
-                y = j * sw
-                for g in range(c_new):
-                    A = images[k, x:x + kh, y:y + kw, :]
-                    Wmin = W[:, :, :, g]
-                    dZmin = dZ[k, i, j, g]
-                    dA[k, x:x + kh, y:y + kw, :] += dZmin * Wmin
-                    dW[:, :, :, g] += dZmin * A
-    if padding == "same":
+    for m in range(dZ.shape[0]):
+        for i in range(dZ.shape[1]):
+            x = i * stride[0]
+            for j in range(dZ.shape[2]):
+                y = j * stride[1]
+                for k in range(dZ.shape[3]):
+                    A = A_pad[m, x:x + W.shape[0],
+                              y:y + W.shape[1], :]
+                    Wmin = W[:, :, :, k]
+                    dZmin = dZ[m, i, j, k]
+                    dA[m, x:x + W.shape[0],
+                       y:y + W.shape[1], :] += dZmin * Wmin
+                    dW[:, :, :, k] += dZmin * A
+    if padding == 'same':
         dA = dA[:, ph:-ph, pw:-pw, :]
-    return(dA, dW, db)
+    return (dA, dW, db)
