@@ -6,14 +6,14 @@ inception_block = __import__('0-inception_block').inception_block
 
 def inception_network():
     """Inception network"""
-    init = K.initializers.HeNormal()
+    init =  K.initializers.he_normal()
     activation_f = K.activations.relu
     img_input = K.Input(shape=(224, 224, 3))
     c1 = K.layers.Conv2D(filters=64,
                          kernel_size=(7, 7),
                          strides=(2, 2),
                          padding='same',
-                         activation= activation_f,
+                         activation=activation_f,
                          kernel_initializer=init)(img_input)
     mp1 = K.layers.MaxPool2D(pool_size=(3, 3),
                              strides=(2, 2),
@@ -22,13 +22,13 @@ def inception_network():
                          kernel_size=(1, 1),
                          strides=(1, 1),
                          padding='same',
-                         activation= activation_f,
+                         activation=activation_f,
                          kernel_initializer=init)(mp1)
     c3 = K.layers.Conv2D(filters=192,
                          kernel_size=(3, 3),
                          strides=(1, 1),
                          padding='same',
-                         activation= activation_f,
+                         activation=activation_f,
                          kernel_initializer=init)(c2)
     mp2 = K.layers.MaxPool2D(pool_size=(3, 3),
                              strides=(2, 2),
