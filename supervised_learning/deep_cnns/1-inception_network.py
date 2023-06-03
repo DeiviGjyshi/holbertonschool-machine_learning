@@ -6,7 +6,7 @@ inception_block = __import__('0-inception_block').inception_block
 
 def inception_network():
     """Inception network"""
-    init =  K.initializers.he_normal()
+    init = K.initializers.he_normal()
     activation_f = K.activations.relu
     img_input = K.Input(shape=(224, 224, 3))
     c1 = K.layers.Conv2D(filters=64,
@@ -49,8 +49,8 @@ def inception_network():
     I8 = inception_block(mp4, [256, 160, 320, 32, 128, 128])
     I9 = inception_block(I8, [384, 192, 384, 48, 128, 128])
     AP1 = K.layers.AveragePooling2D(pool_size=(7, 7),
-                                     strides=(1, 1),
-                                     padding='valid')(I9)
+                                    strides=(1, 1),
+                                    padding='valid')(I9)
     Dropout1 = K.layers.Dropout(rate=0.4)(AP1)
     output = K.layers.Dense(1000,
                             activation='softmax',
