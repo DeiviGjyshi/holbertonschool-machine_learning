@@ -15,6 +15,7 @@ class Yolo:
         self.class_t = class_t
         self.nms_t = nms_t
         self.anchors = anchors
+
     def process_outputs(self, outputs, image_size):
         """process outputs"""
         boxes = []
