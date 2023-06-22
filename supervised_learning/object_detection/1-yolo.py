@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Object detection"""
 import tensorflow.keras as K
+import numpy as np
 
 
 class Yolo:
