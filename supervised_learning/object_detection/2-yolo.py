@@ -53,8 +53,8 @@ class Yolo:
             anchorh = self.anchors[i, :, 1]
             bw = anchorw * np.exp(t_w)
             bh = anchorh * np.exp(t_h)
-            inputw = self.model.input.shape[1]
-            inputh = self.model.input.shape[2]
+            inputw = self.model.input.shape[1].value
+            inputh = self.model.input.shape[2].value
             bw = bw / inputw
             bh = bh / inputh
             x1 = bx - bw / 2
