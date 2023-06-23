@@ -84,4 +84,4 @@ class Yolo:
         filtered_box = np.array(filtered_box)
         box_scores = np.array(box_scores)
         box_classes = np.array(box_classes)
-        return filtered_box, box_classes, box_scores   
+        return filtered_box, box_classes, box_scores
