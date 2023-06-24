@@ -85,8 +85,8 @@ class Yolo:
             box_scores.extend(max_score[mask])
         filtered_box = np.array(filtered_box)
         box_scores = np.array(box_scores)
-        box_classes = np.array(box_classes)   
-        return filtered_box, box_classes, box_scores 
+        box_classes = np.array(box_classes)
+        return filtered_box, box_classes, box_scores
 
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
         """Non max supression"""
