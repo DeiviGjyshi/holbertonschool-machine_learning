@@ -84,7 +84,7 @@ class Yolo:
         filtered_box = np.array(filtered_box)
         box_scores = np.array(box_scores)
         box_classes = np.array(box_classes)
-        return filtered_box, box_classes, box_scores 
+        return filtered_box, box_classes, box_scores
 
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
         """Non max supression"""
@@ -105,32 +105,26 @@ class Yolo:
         return prdicted_boxes, predicted_box_classes, predicted_box_scores
 
     def nms(self, boxes, scores):
-         """Perform non-max suppression"""
-         x1 = boxes[:, 0]
-         y1 = boxes[:, 1]
-         x2 = boxes[:, 2]
-         y2 = boxes[:, 3]
-         areas = (x2 - x1 + 1) * (y2 - y1 + 1)
-        # Sort the boxes by their scores in descending order
-         order = scores.argsort()[::-1]
-         keep = []
-         while order.size > 0:
-             # Get the box with the highest score
-                i = order[0]
-                keep.append(i)
-            # Compute the overlap between the current box and the rest of the boxes
-                xx1 = np.maximum(x1[i], x1[order[1:]])
-                yy1 = np.maximum(y1[i], y1[order[1:]])
-                xx2 = np.minimum(x2[i], x2[order[1:]])
-                yy2 = np.minimum(y2[i], y2[order[1:]])
-                w = np.maximum(0.0, xx2 - xx1 + 1)
-                h = np.maximum(0.0, yy2 - yy1 + 1)
-                intersection = w * h
-                # Compute the IoU (Intersection over Union)
-                iou = intersection / (areas[i] + areas[order[1:]] - intersection)
-                # Find the indices of boxes that do not overlap significantly with the current box
-                indices = np.where(iou <= self.nms_t)[0]
-                # Update the order array to exclude the suppressed boxes
-                order = order[indices + 1]
-         keep = np.array(keep)
-         return keep
+        """Perform non-max suppression"""
+        x1 = boxes[:, 0]
+        y1 = boxes[:, 1]
+        x2 = boxes[:, 2]
+        y2 = boxes[:, 3]
+        areas = (x2 - x1 + 1) * (y2 - y1 + 1)
+        order = scores.argsort()[::-1]
+        keep = []
+        while order.size > 0:
+            i = order[0]
+            keep.append(i)
+            xx1 = np.maximum(x1[i], x1[order[1:]])
+            yy1 = np.maximum(y1[i], y1[order[1:]])
+            xx2 = np.minimum(x2[i], x2[order[1:]])
+            yy2 = np.minimum(y2[i], y2[order[1:]])
+            w = np.maximum(0.0, xx2 - xx1 + 1)
+            h = np.maximum(0.0, yy2 - yy1 + 1)
+            intersection = w * h
+            iou = intersection / (areas[i] + areas[order[1:]] - intersection)
+            indices = np.where(iou <= self.nms_t)[0]
+            order = order[indices + 1]
+        keep = np.array(keep)
+        return keep
