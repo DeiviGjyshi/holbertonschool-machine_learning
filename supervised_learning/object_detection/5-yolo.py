@@ -17,7 +17,7 @@ class Yolo:
         self.class_names = classes
         self.class_t = class_t
         self.nms_t = nms_t
-        self.anchors = anchors 
+        self.anchors = anchors
 
     def sig(self, x):
         """sigmoid"""
@@ -149,7 +149,7 @@ class Yolo:
             newY = images[i].shape[1]
             image_shapes.append((newX, newY))
             resize = cv2.resize(images[i], (inputw, inputh),
-                               interpolation=cv2.INTER_CUBIC)
+                                interpolation=cv2.INTER_CUBIC)
             resize = resize / 255
             pimages.append(resize)
         pimages = np.array(pimages)
