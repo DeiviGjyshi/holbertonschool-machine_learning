@@ -17,7 +17,7 @@ class Yolo:
         self.class_names = classes
         self.class_t = class_t
         self.nms_t = nms_t
-        self.anchors = anchors        
+        self.anchors = anchors 
 
     def sig(self, x):
         """sigmoid"""
@@ -129,13 +129,13 @@ class Yolo:
             indices = np.where(iou <= self.nms_t)[0]
             order = order[indices + 1]
         keep = np.array(keep)
-        return keep 
+        return keep
 
     @staticmethod
     def load_images(folder_path):
         """Load images"""
         images_path = glob.glob(folder_path + '/*.jpg')
-        images = [cv.imread(x) for x in images_path]
+        images = [cv2.imread(x) for x in images_path]
         return (images, images_path)
 
     def preprocess_images(self, images):
@@ -148,8 +148,8 @@ class Yolo:
             newX = images[i].shape[0]
             newY = images[i].shape[1]
             image_shapes.append((newX, newY))
-            resize = cv.resize(images[i], (inputw, inputh),
-                               interpolation=cv.INTER_CUBIC)
+            resize = cv2.resize(images[i], (inputw, inputh),
+                               interpolation=cv2.INTER_CUBIC)
             resize = resize / 255
             pimages.append(resize)
         pimages = np.array(pimages)
