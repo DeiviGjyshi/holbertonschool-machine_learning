@@ -33,7 +33,7 @@ class LSTMCell:
         """Forward prop RNN"""
         concat = np.hstack((h_prev, x_t))
         f = sigmoid(np.dot(concat, self.Wf) + self.bf)
-        u= sigmoid(np.dot(concat, self.Wu) + self.bu)
+        u = sigmoid(np.dot(concat, self.Wu) + self.bu)
         c_bar = np.tanh(np.dot(concat, self.Wc) + self.bc)
         c_next = f * c_prev + u * c_bar
         o = sigmoid(np.dot(concat, self.Wo) + self.bo)
