@@ -8,9 +8,11 @@ def softmax(x):
     e = np.exp(x)
     return e / e.sum(axis=1, keepdims=True)
 
+
 def sigmoid(x):
     """Sigmoid"""
     return (1 / (1 + np.exp(-x)))
+
 
 class GRUCell:
     """GRU cell"""
