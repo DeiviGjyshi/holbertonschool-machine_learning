@@ -1,4 +1,4 @@
-:x
+#!/usr/bin/env python3
 """Function that performs forward propagation for a deep RNN"""
 import numpy as np
 
