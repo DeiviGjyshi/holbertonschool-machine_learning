@@ -4,6 +4,7 @@ import numpy as np
 
 
 def transform_grams(references, sentence, n):
+    """Transform ngrams"""
     if n == 1:
         return references, sentence
     else:
@@ -34,7 +35,9 @@ def transform_grams(references, sentence, n):
         ngram_ref.append(n_ref)
     return ngram_ref, ngram_sent
 
+
 def ngram_bleu(references, sentence, n):
+    """ngram Bleu"""
     ngram_ref, ngram_sent = transform_grams(references, sentence, n)
     ngram_sent_len = len(ngram_sent)
     sentence_length = len(sentence)
