@@ -46,7 +46,7 @@ def ngram_bleu(references, sentence, n):
     for ref in ngram_ref:
         for gram in ref:
             if ref_dict.get(gram) is None or ref_dict[gram] < ref.count(gram):
-                ref_dict[gram]=ref.count(gram)
+                ref_dict[gram] = ref.count(gram)
     matchings = {word: 0 for word in ngram_sent}
     for ref in ngram_ref:
         for gram in matchings.keys():
