@@ -4,7 +4,7 @@ import numpy as np
 
 
 def transform_grams(references, sentence, n):
-    """Transform ngrams"""
+    """"Transform ngrams"""
     if n == 1:
         return references, sentence
     else:
@@ -14,7 +14,7 @@ def transform_grams(references, sentence, n):
             count = 0
             w = word
             for j in range(1, n):
-                if sent_length > i+j:
+                if sent_length > i + j:
                     w += ' ' + sentence[i + j]
                     count += 1
             if count == n - 1:
@@ -23,21 +23,21 @@ def transform_grams(references, sentence, n):
         for ref in references:
             n_ref = []
             ref_len = len(ref)
-            for i, word in enumerate(sentence):
+            for i, word in enumerate(ref):
                 count = 0
                 w = word
                 for j in range(1, n):
-                    if ref_len > i+j:
+                    if ref_len > i + j:
                         w += ' ' + ref[i + j]
                         count += 1
                 if count == n - 1:
                     n_ref.append(w)
-        ngram_ref.append(n_ref)
-    return ngram_ref, ngram_sent
+            ngram_ref.append(n_ref)
+        return ngram_ref, ngram_sent
 
 
 def ngram_bleu(references, sentence, n):
-    """ngram Bleu"""
+    """Ngram bleu"""
     ngram_ref, ngram_sent = transform_grams(references, sentence, n)
     ngram_sent_len = len(ngram_sent)
     sentence_length = len(sentence)
@@ -51,7 +51,7 @@ def ngram_bleu(references, sentence, n):
     for ref in ngram_ref:
         for gram in matchings.keys():
             if gram in ref:
-                matchings[gram] = sentenc_dict[gram]
+                matchings[gram] = max(matchings[gram], sentenc_dict[gram])
     for gram in matchings.keys():
         if ref_dict.get(gram) is not None:
             matchings[gram] = min(ref_dict[gram], matchings[gram])
@@ -61,6 +61,6 @@ def ngram_bleu(references, sentence, n):
     if sentence_length > references_len:
         BLEU = 1
     else:
-        BLEU = np.exp(1 - float(references_len) / float(sentence_length))
+        BLEU = np.exp(1 - float(references_len) / sentence_length)
     BLEU_Score = BLEU * precision
     return BLEU_Score
