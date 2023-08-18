@@ -61,6 +61,6 @@ def ngram_bleu(references, sentence, n):
     if sentence_length > references_len:
         BLEU = 1
     else:
-        BLEU = np.exp(1 - float(references_len) / sentence_length)
+        BLEU = np.exp(1 - float(references_len) / float(sentence_length))
     BLEU_Score = BLEU * precision
     return BLEU_Score
