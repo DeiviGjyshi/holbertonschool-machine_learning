@@ -4,7 +4,7 @@ import numpy as np
 
 
 def pca(X, var=0.95):
-    """PCA"""
+    """Function PCA"""
     U, S, V = np.linalg.svd(X)
     acum = np.cumsum(S)
     dim = []
