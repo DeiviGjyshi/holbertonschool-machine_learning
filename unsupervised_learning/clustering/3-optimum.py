@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Clusterin tasks"""
 import numpy as np
+variance = __import__('2-variance').variance
+kmeans = __import__('1-kmeans').kmeans
 
 
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
